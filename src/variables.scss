@@ -1,0 +1,27 @@
+//color variables
+$grey0: #eeeeee;
+$grey1: #212121;
+
+$purple0: #aa00ff;
+
+$white0: #ffffff;
+
+//text color variables
+$text_color0: $grey1;
+$text_color1: $white0;
+
+//border color variables
+$border_color0: $grey0;
+
+//background color variables
+$background_color0: $purple0;
+
+//box-shadow variables
+$box_shadow0: 0px 16px 32px rgba(170, 0, 255, 0.24);
+
+@mixin setFont($family, $weight, $size, $lineHeight) {
+    font-family: $family, sans-serif;
+    font-size: $size;
+    line-height: $lineHeight;
+    font-weight: $weight;
+}

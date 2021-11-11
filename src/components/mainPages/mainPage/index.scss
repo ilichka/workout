@@ -1,0 +1,90 @@
+@import './../../../variables';
+
+.main-page {
+    max-width: 800px;
+    margin: 120px auto 0 auto;
+    position: relative;
+
+    .main-image {
+        background-image: url('./../../../img/workoutView.png');
+        width: 800px;
+        height: 450px;
+        margin-bottom: 32px;
+    }
+
+    .exercise-block {
+        display: flex;
+        flex-direction: column;
+
+        .exercise-block-header {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 24px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid $border_color0;
+            color: $text_color0;
+
+            .exercise-day {
+                @include setFont('SF Pro Text', normal, 0.875rem, 1.25rem);
+            }
+
+            .exercise-kind {
+                @include setFont('SF Pro Text', 600, 1.5rem, 2rem);
+            }
+
+            .exercise-options {
+                @include setFont('SF Pro Text', normal, 0.875rem, 1.25rem);
+            }
+        }
+
+        .exercise-sections {
+            display: flex;
+            flex-direction: column;
+
+            .exercise-section {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: 24px;
+                margin-bottom: 8px;
+                border-bottom: 1px solid $border_color0;
+
+                .section-name {
+                    @include setFont('SF Pro Text', 600, 1rem, 1.5rem);
+                    margin-bottom: 16px;
+                }
+
+                .section-row {
+                    display: flex;
+                    flex-direction: row;
+                    color: $text_color0;
+                    align-items: center;
+                    margin-bottom: 8px;
+
+                    .exercise-image {
+                        width: 64px;
+                        height: 64px;
+                        margin-right: 16px;
+                        border-radius: 12px;
+                    }
+
+                    .exercise-info {
+                        display: flex;
+                        flex-direction: column;
+
+                        .exercise-name {
+                            @include setFont('SF Pro Text', 600, 1.25rem, 1.75rem);
+                        }
+
+                        .exercise-time {
+                            @include setFont('SF Pro Text', normal, 0.875rem, 1.25rem);
+                        }
+                    }
+                }
+
+                &:last-child {
+                    padding-bottom: 84px;
+                }
+            }
+        }
+    }
+}
