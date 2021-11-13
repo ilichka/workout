@@ -1,0 +1,49 @@
+@import './../../../variables';
+
+.complete-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .complete-image {
+        background-image: url('./../../../img/ok-status.png');
+        width: 76px;
+        height: 76px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-top: 124px;
+    }
+
+    .complete-tip {
+        @include setFont('SF Pro Display', 600, 2.5rem, 3.5rem);
+        color: $text_color0;
+    }
+
+    .congratulations {
+        @include setFont('SF Pro Display', 400, 1.25rem, 2.25rem);
+        color: $text_color4;
+    }
+
+    .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
+
+        .time-title {
+            @include setFont('SF Pro Display', 400, 0.875rem, 1.25rem);
+            color: $text_color0;
+        }
+
+        .time-value {
+            @include setFont('SF Pro Display', 600, 2.5rem, 3.5rem);
+            color: $text_color0;
+        }
+    }
+
+    .complete-button {
+        padding: 13px 337px;
+        border-radius: 8px;
+    }
+}

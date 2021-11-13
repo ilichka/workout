@@ -1,17 +1,27 @@
 //color variables
 $grey0: #eeeeee;
 $grey1: #212121;
+$grey2: #222222;
 
 $purple0: #aa00ff;
+$purple1: rgba(255, 64, 129, 1);
 
 $white0: #ffffff;
+
+$green0: rgba(29, 233, 182, 1);
 
 //text color variables
 $text_color0: $grey1;
 $text_color1: $white0;
+$text_color2: $green0;
+$text_color3: $purple1;
+$text_color4: $grey2;
 
 //border color variables
 $border_color0: $grey0;
+$border_color1: $green0;
+$border_color2: $purple1;
+$border_color3: $purple0;
 
 //background color variables
 $background_color0: $purple0;

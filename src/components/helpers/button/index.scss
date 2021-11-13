@@ -1,14 +1,15 @@
 @import './../../../variables';
 
 .custom-button {
-    position: fixed;
-    bottom: 32px;
-    width: 800px;
     background-color: $background_color0;
     @include setFont('SF Pro Display', 600, 1rem, 1.5rem);
     color: $text_color1;
     text-align: center;
-    padding: 16px 0;
     box-shadow: $box_shadow0;
-    border-radius: 8px;
+    user-select: none;
+    cursor: pointer;
+
+    &.hidden {
+        visibility: hidden;
+    }
 }

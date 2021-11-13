@@ -3,11 +3,16 @@ import { observer } from 'mobx-react';
 import ExerciseSection from './ExerciseSection';
 import { useStore } from '../../../utils/utils';
 import Button from '../../helpers/button/Button';
+import { useHistory } from 'react-router-dom';
 
 type Props = {};
 
 const MainPage: React.FC<Props> = observer(() => {
+    const history = useHistory();
     const { userStore } = useStore();
+    const startTraining = () => {
+        history.push('/exercise');
+    };
     return (
         <div className="main-page">
             <div className="main-image" />
@@ -21,7 +26,9 @@ const MainPage: React.FC<Props> = observer(() => {
                     <ExerciseSection sections={userStore.exercises} />
                 </div>
             </div>
-            <Button innerText="button" />
+            <Button btnClass="main-page-button" onClick={startTraining}>
+                Start Workout
+            </Button>
         </div>
     );
 });
