@@ -1,6 +1,7 @@
 import RootStore from '../rootStore/Store';
 import { action, makeObservable, observable } from 'mobx';
 import { getExercises } from '../../utils/requester/getExercises';
+import { exerciseObject, objectInArrayWithExercises } from '../../utils/types';
 
 export default class UserStore {
     rootStore: RootStore;
@@ -9,26 +10,9 @@ export default class UserStore {
 
     totalTime: number;
 
-    exercisesArray: Array<{
-        description: string;
-        duration: number;
-        id: number;
-        photo: string;
-        title: string;
-        video: string;
-    }>;
+    exercisesArray: Array<exerciseObject>;
 
-    exercises: Array<{
-        title: string;
-        exercises: Array<{
-            description: string;
-            duration: number;
-            id: number;
-            photo: string;
-            title: string;
-            video: string;
-        }>;
-    }>;
+    exercises: Array<objectInArrayWithExercises>;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -47,18 +31,21 @@ export default class UserStore {
         });
     }
 
-    changeCurrentExercise = (type: string, value?: number) => {
+    changeCurrentExercise = (type: string, value = 0): void => {
         switch (type) {
             case 'increase':
                 this.currentExercise++;
                 break;
             case 'decrease':
                 this.currentExercise--;
+                break;
+            case 'set':
+                this.currentExercise = value;
+                break;
         }
     };
 
     updateTotalTime = (time: number): void => {
-        console.log('aaa');
         this.totalTime += time;
     };
 
@@ -66,20 +53,8 @@ export default class UserStore {
         await getExercises().then((res) => {
             this.exercises = res.data.data.questions;
             this.exercisesArray = res.data.data.questions.reduce(
-                (
-                    acc: Array<object>,
-                    value: {
-                        title: string;
-                        exercises: Array<{
-                            description: string;
-                            duration: number;
-                            id: number;
-                            photo: string;
-                            title: string;
-                            video: string;
-                        }>;
-                    },
-                ) => acc.concat(value.exercises),
+                (acc: Array<exerciseObject>, value: objectInArrayWithExercises) =>
+                    acc.concat(value.exercises),
                 [],
             );
         });

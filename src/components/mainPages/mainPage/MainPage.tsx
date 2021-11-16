@@ -5,12 +5,10 @@ import { useStore } from '../../../utils/utils';
 import Button from '../../helpers/button/Button';
 import { useHistory } from 'react-router-dom';
 
-type Props = {};
-
-const MainPage: React.FC<Props> = observer(() => {
+const MainPage: React.FC = observer(() => {
     const history = useHistory();
     const { userStore } = useStore();
-    const startTraining = () => {
+    const startTraining = (): void => {
         history.push('/exercise');
     };
     return (

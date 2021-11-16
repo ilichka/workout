@@ -3,13 +3,10 @@ import Button from '../../helpers/button/Button';
 import { useHistory } from 'react-router-dom';
 import { useStore } from '../../../utils/utils';
 
-type Props = {};
-
-const CompletePage: React.FC<Props> = () => {
+const CompletePage: React.FC = () => {
     const history = useHistory();
     const { userStore } = useStore();
-    console.log(userStore);
-    const backToMain = () => {
+    const backToMain = (): void => {
         history.push('/');
     };
     return (

@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
+import { exerciseObject } from '../../../utils/types';
 
 type Props = {
     sections: Array<{
         title: string;
-        exercises: Array<{ title: string; duration: number; id: number; photo: string }>;
+        exercises: Array<exerciseObject>;
     }>;
 };
 
 const ExerciseSection: React.FC<Props> = ({ sections }) => {
-    console.log(sections);
     return (
         <Fragment>
             {sections.map((section, index) => (

@@ -1,0 +1,46 @@
+@import './../../../variables';
+
+.countdown {
+    position: relative;
+    margin: 32px 0;
+    height: 128px;
+    width: 128px;
+    text-align: center;
+
+    .countdown-number {
+        color: $text_color2;
+        display: inline-block;
+        @include setFont('SF Pro Display', 600, 2.5rem, 8rem);
+    }
+
+    .countdown-svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 128px;
+        height: 128px;
+        transform: rotateY(-180deg) rotateZ(-90deg);
+
+        .countdown-circle {
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            stroke-width: 8px;
+            stroke: $border_color1;
+            fill: none;
+            stroke-dasharray: 352px;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+    }
+
+    &.training {
+        .countdown-number {
+            color: $text_color3;
+        }
+
+        .countdown-svg {
+            .countdown-circle {
+                stroke: $border_color2;
+            }
+        }
+    }
+}

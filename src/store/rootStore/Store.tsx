@@ -24,7 +24,7 @@ export default class RootStore {
         this.initApp();
     }
 
-    initApp() {
+    initApp(): void {
         Promise.all([this.userStore.setExercises()]).then(this.toggleLoading, (er) => {
             this.toggleLoading();
             this.toggleError();
@@ -32,11 +32,11 @@ export default class RootStore {
         });
     }
 
-    toggleLoading = () => {
+    toggleLoading = (): void => {
         this.isLoading = !this.isLoading;
     };
 
-    toggleError = () => {
+    toggleError = (): void => {
         this.isError = !this.isError;
     };
 }
