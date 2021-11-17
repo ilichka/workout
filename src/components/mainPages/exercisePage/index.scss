@@ -45,6 +45,39 @@
         }
     }
 
+    .video-wrapper {
+        position: relative;
+        .paused-window {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            color: $text_color1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(33, 33, 33, 0.6);
+            z-index: 10;
+
+            .pause-header {
+                @include setFont('SF Pro Display', 600, 1.5rem, 2rem);
+            }
+
+            .pause-tip {
+                @include setFont('SF Pro Display', 400, 1rem, 1.5rem);
+                margin: 8px 0 32px 0;
+            }
+
+            .leave-button {
+                background-color: transparent;
+                box-shadow: none;
+                padding: 12px 85px;
+                border: 1px solid $border_color0;
+                border-radius: 8px;
+            }
+        }
+    }
+
     .button-wrapper {
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
             rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,

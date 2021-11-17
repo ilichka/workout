@@ -4,8 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `yarn start`
 
 Runs the app in the development mode.\
@@ -39,8 +37,45 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `yarn format`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The script formats all the possible files with provided Prettier config that stored in root of the repository.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Linting
+
+### Pre-commit rules
+
+Pre-commit hooks are managed by Husky npm package. In this particular case it does all the required format before every commit.
+The hook also extended with `lint-staged` library that allows to run a script only on those files that are staged in git.
+
+## Style guide
+
+### ESLint
+
+### Namings
+
+- All the files and folders should be named in camelCase.
+
+### TypeScript integration
+
+TypeScript allows us to keep the code clean and readable. You should avoid using type of any at the application, that means everything should be covered by interfaces.
+
+[Documentation](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) Typescript.
+
+## Exporting components
+
+Components should be exported with the default export. Components must be named with the Component postfix.
+
+Example:
+
+```ts
+const PageHeader: React.FC<PageHeaderProps> = (props) => {
+  return (
+    <HeaderContainer>
+      <...>
+    </HeaderContainer>
+  );
+};
+
+export default PageHeader;
+```

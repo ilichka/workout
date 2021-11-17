@@ -54,6 +54,11 @@ const ExercisePage: React.FC = () => {
         }
     };
 
+    const leaveWorkout = (): void => {
+        userStore.changeCurrentExercise('set', 0);
+        history.push('/complete');
+    };
+
     useInterval(
         () => {
             if (animationDurationValue === 0) {
@@ -94,16 +99,29 @@ const ExercisePage: React.FC = () => {
                     <div className="next" />
                 </Button>
             </div>
-            <video
-                ref={vidRef}
-                width="800"
-                height="450"
-                autoPlay
-                muted
-                controls={false}
-                loop
-                src={userStore.exercisesArray[userStore.currentExercise].video}
-            />
+            <div className="video-wrapper">
+                {!isRunning && (
+                    <div className="paused-window">
+                        <div className="pause-header">Workout paused</div>
+                        <div className="pause-tip">
+                            Press “Play button” or “Space bar” to continue
+                        </div>
+                        <Button btnClass="leave-button" onClick={leaveWorkout}>
+                            Leave workout
+                        </Button>
+                    </div>
+                )}
+                <video
+                    ref={vidRef}
+                    width="800"
+                    height="450"
+                    autoPlay
+                    muted
+                    controls={false}
+                    loop
+                    src={userStore.exercisesArray[userStore.currentExercise].video}
+                />
+            </div>
             <div className="button-wrapper">
                 <Button btnClass="play-pause-button" onClick={playPauseHandler}>
                     <div className={classNames('button-image', !isRunning ? 'play' : 'pause')} />
