@@ -6,8 +6,6 @@ import { exerciseObject, objectInArrayWithExercises } from '../../utils/types';
 export default class UserStore {
     rootStore: RootStore;
 
-    currentExercise: number;
-
     totalTime: number;
 
     exercisesArray: Array<exerciseObject>;
@@ -17,33 +15,17 @@ export default class UserStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.exercises = [];
-        this.currentExercise = 0;
         this.exercisesArray = [];
         this.totalTime = 0;
 
         makeObservable(this, {
             setExercises: action,
             exercises: observable,
-            currentExercise: observable,
             exercisesArray: observable,
             totalTime: observable,
             updateTotalTime: action,
         });
     }
-
-    changeCurrentExercise = (type: string, value = 0): void => {
-        switch (type) {
-            case 'increase':
-                this.currentExercise++;
-                break;
-            case 'decrease':
-                this.currentExercise--;
-                break;
-            case 'set':
-                this.currentExercise = value;
-                break;
-        }
-    };
 
     updateTotalTime = (time: number): void => {
         this.totalTime += time;

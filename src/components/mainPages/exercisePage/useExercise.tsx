@@ -6,10 +6,11 @@ const useExercise = (
     vidRef: RefObject<HTMLVideoElement>,
     duration: number,
     updateTotalTime: (time: number) => void,
-    changeCurrentExercise: (type: string, value?: number) => void,
     currentExercise: number,
     title: string,
     video: string,
+    setCurrentExercise: React.Dispatch<React.SetStateAction<number>>,
+    lastExerciseIndex: number,
 ) => {
     const history = useHistory();
     const [status, setStatus] = useState('preparing');
@@ -24,9 +25,9 @@ const useExercise = (
         }
     };
 
-    const changeExercise = (type: string): void => {
+    const changeExercise = (value: number): void => {
         changeTotalTime();
-        changeCurrentExercise(type);
+        setCurrentExercise((prevValue) => prevValue + value);
         setStatus('preparing');
         setAnimationDuration(5);
         setAnimationDurationValue(5);
@@ -40,12 +41,11 @@ const useExercise = (
 
     const onAnimationEnd = (): void => {
         changeTotalTime();
-        if (currentExercise === 20 && status === 'training') {
-            changeCurrentExercise('set', 0);
+        if (currentExercise === lastExerciseIndex && status === 'training') {
             history.push('/complete');
         } else {
             const valueToSet = status === 'training' ? 5 : duration;
-            status === 'training' && changeCurrentExercise('increase', 1);
+            status === 'training' && setCurrentExercise((prevValue) => prevValue + 1);
             setAnimationDurationValue(valueToSet);
             setAnimationDuration(valueToSet);
             setStatus((prevStatus) => (prevStatus === 'preparing' ? 'training' : 'preparing'));
@@ -53,7 +53,6 @@ const useExercise = (
     };
 
     const leaveWorkout = (): void => {
-        changeCurrentExercise('set', 0);
         history.push('/complete');
     };
 
@@ -72,7 +71,7 @@ const useExercise = (
     return {
         title: status === 'preparing' ? 'Get ready' : title,
         isFirst: currentExercise === 0,
-        isLast: currentExercise === 20,
+        isLast: currentExercise === lastExerciseIndex,
         changeExercise,
         status,
         animationDuration,

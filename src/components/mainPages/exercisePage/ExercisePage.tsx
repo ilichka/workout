@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useStore } from '../../../utils/utils';
 import classNames from 'classnames';
 import Button from '../../helpers/button/Button';
@@ -7,6 +7,7 @@ import useExercise from './useExercise';
 
 const ExercisePage: React.FC = () => {
     const { userStore } = useStore();
+    const [currentExercise, setCurrentExercise] = useState(0);
     const vidRef = useRef<HTMLVideoElement>(null);
     const {
         title,
@@ -22,12 +23,13 @@ const ExercisePage: React.FC = () => {
         src,
     } = useExercise(
         vidRef,
-        userStore.exercisesArray[userStore.currentExercise].duration,
+        userStore.exercisesArray[currentExercise].duration,
         userStore.updateTotalTime,
-        userStore.changeCurrentExercise,
-        userStore.currentExercise,
-        userStore.exercisesArray[userStore.currentExercise].title,
-        userStore.exercisesArray[userStore.currentExercise].video,
+        currentExercise,
+        userStore.exercisesArray[currentExercise].title,
+        userStore.exercisesArray[currentExercise].video,
+        setCurrentExercise,
+        userStore.exercisesArray.length - 1,
     );
     return (
         <div className="exercise-page">
@@ -35,7 +37,7 @@ const ExercisePage: React.FC = () => {
             <div className="tools">
                 <Button
                     btnClass={classNames(isFirst && 'hidden')}
-                    onClick={changeExercise.bind(this, 'decrease')}
+                    onClick={changeExercise.bind(this, -1)}
                 >
                     <div className="previous" />
                 </Button>
@@ -49,7 +51,7 @@ const ExercisePage: React.FC = () => {
                 />
                 <Button
                     btnClass={classNames(isLast && 'hidden')}
-                    onClick={changeExercise.bind(this, 'increase')}
+                    onClick={changeExercise.bind(this, 1)}
                 >
                     <div className="next" />
                 </Button>
