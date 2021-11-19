@@ -10,7 +10,12 @@ type Props = {
 
 const Button: React.FC<Props> = ({ innerText, btnClass, onClick, children }) => {
     return (
-        <div className={classNames('custom-button', btnClass)} onClick={onClick}>
+        <div
+            className={classNames('custom-button', btnClass)}
+            onClick={onClick}
+            role="button"
+            tabIndex={0}
+        >
             {children}
         </div>
     );

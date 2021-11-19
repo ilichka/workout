@@ -20,5 +20,7 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['react', 'jsx-a11y', '@typescript-eslint'],
-    rules: {},
+    rules: {
+        'jsx-a11y/click-events-have-key-events': 'off',
+    },
 };
