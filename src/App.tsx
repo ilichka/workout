@@ -6,7 +6,6 @@ import { Provider } from './store/provider/Provider';
 import { useStore } from './utils/utils';
 import MainPage from './components/mainPages/mainPage/MainPage';
 import ExercisePage from './components/mainPages/exercisePage/ExercisePage';
-import CompletePage from './components/mainPages/completePage/CompletePage';
 import NoMatch from './components/mainPages/noMatch/NoMathc';
 import Preloader from './components/helpers/preloader/Preloader';
 import { observer } from 'mobx-react';
@@ -14,7 +13,6 @@ import { observer } from 'mobx-react';
 const ROUTES = [
     { path: '/', exact: true, component: MainPage },
     { path: '/exercise', exact: true, component: ExercisePage },
-    { path: '/complete', exact: true, component: CompletePage },
     { path: '*', component: NoMatch },
 ];
 

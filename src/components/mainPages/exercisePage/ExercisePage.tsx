@@ -1,12 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useStore } from '../../../utils/utils';
 import classNames from 'classnames';
 import Button from '../../helpers/button/Button';
 import CountdownCircle from '../../helpers/countdownCircle/CountdownCircle';
 import useExercise from './useExercise';
+import CompletePage from '../completePage/CompletePage';
 
 const ExercisePage: React.FC = () => {
     const { userStore } = useStore();
+    console.log(userStore);
     const [currentExercise, setCurrentExercise] = useState(0);
     const vidRef = useRef<HTMLVideoElement>(null);
     const {
@@ -21,16 +23,27 @@ const ExercisePage: React.FC = () => {
         leaveWorkout,
         playPauseHandler,
         src,
-    } = useExercise(
-        vidRef,
-        userStore.exercisesArray[currentExercise].duration,
-        userStore.updateTotalTime,
+        isCompleted,
+        timeToUpdate,
+        newCurrentExercise,
+    } = useExercise({
+        duration: userStore.exercisesArray[currentExercise].duration,
         currentExercise,
-        userStore.exercisesArray[currentExercise].title,
-        userStore.exercisesArray[currentExercise].video,
-        setCurrentExercise,
-        userStore.exercisesArray.length - 1,
-    );
+        title: userStore.exercisesArray[currentExercise].title,
+        video: userStore.exercisesArray[currentExercise].video,
+        lastExerciseIndex: userStore.exercisesArray.length - 1,
+    });
+
+    useEffect(() => {
+        isRunning ? vidRef.current?.play() : vidRef.current?.pause();
+        userStore.updateTotalTime(timeToUpdate);
+        setCurrentExercise(newCurrentExercise);
+    }, [isRunning, timeToUpdate, newCurrentExercise]);
+
+    if (isCompleted) {
+        return <CompletePage />;
+    }
+
     return (
         <div className="exercise-page">
             <div className="exercise-status">{title}</div>

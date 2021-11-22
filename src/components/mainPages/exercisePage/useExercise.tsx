@@ -1,33 +1,44 @@
 import { useInterval } from '../../../utils/utils';
 import React, { RefObject, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
-const useExercise = (
-    vidRef: RefObject<HTMLVideoElement>,
-    duration: number,
-    updateTotalTime: (time: number) => void,
-    currentExercise: number,
-    title: string,
-    video: string,
-    setCurrentExercise: React.Dispatch<React.SetStateAction<number>>,
-    lastExerciseIndex: number,
-) => {
-    const history = useHistory();
+type useExerciseObject = {
+    duration: number;
+    currentExercise: number;
+    title: string;
+    video: string;
+    lastExerciseIndex: number;
+};
+
+const useExercise = ({
+    duration,
+    currentExercise,
+    title,
+    video,
+    lastExerciseIndex,
+}: useExerciseObject) => {
     const [status, setStatus] = useState('preparing');
     const [animationDuration, setAnimationDuration] = useState(5);
     const [animationDurationValue, setAnimationDurationValue] = useState(5);
     const [isRunning, setIsRunning] = useState(true);
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [timeToUpdate, setTimeToUpdate] = useState(0);
+    const [newCurrentExercise, setNewCurrentExercise] = useState(currentExercise);
+
+    if (duration < 0 || currentExercise < 0 || lastExerciseIndex < 0) {
+        throw new Error('you passed wrong values');
+    }
 
     const changeTotalTime = (): void => {
         if (status === 'training') {
             const time = duration - Math.ceil(animationDurationValue);
-            updateTotalTime(time);
+            setTimeToUpdate(time);
+            setIsRunning(true);
         }
     };
 
     const changeExercise = (value: number): void => {
         changeTotalTime();
-        setCurrentExercise((prevValue) => prevValue + value);
+        setNewCurrentExercise((prevValue) => prevValue + value);
         setStatus('preparing');
         setAnimationDuration(5);
         setAnimationDurationValue(5);
@@ -35,17 +46,16 @@ const useExercise = (
     };
 
     const playPauseHandler = (): void => {
-        isRunning ? vidRef.current?.pause() : vidRef.current?.play();
         setIsRunning(!isRunning);
     };
 
     const onAnimationEnd = (): void => {
         changeTotalTime();
         if (currentExercise === lastExerciseIndex && status === 'training') {
-            history.push('/complete');
+            setIsCompleted(true);
         } else {
             const valueToSet = status === 'training' ? 5 : duration;
-            status === 'training' && setCurrentExercise((prevValue) => prevValue + 1);
+            status === 'training' && setNewCurrentExercise((prevValue) => prevValue + 1);
             setAnimationDurationValue(valueToSet);
             setAnimationDuration(valueToSet);
             setStatus((prevStatus) => (prevStatus === 'preparing' ? 'training' : 'preparing'));
@@ -53,7 +63,7 @@ const useExercise = (
     };
 
     const leaveWorkout = (): void => {
-        history.push('/complete');
+        setIsCompleted(true);
     };
 
     useInterval(
@@ -80,6 +90,9 @@ const useExercise = (
         leaveWorkout,
         src: video,
         playPauseHandler,
+        isCompleted,
+        timeToUpdate,
+        newCurrentExercise,
     };
 };
 
